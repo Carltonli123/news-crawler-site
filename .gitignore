@@ -1,0 +1,6 @@
+# Local environment variables (passwords)
+.env
+
+# Dependency folders
+node_modules/
+.DS_Store
