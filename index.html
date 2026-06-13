@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest 10 News Headlines</title>
+    <style>
+        :root { --bg-color: #f4f7f6; --card-bg: #ffffff; --text-color: #2c3e50; --accent-color: #ff6600; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg-color); color: var(--text-color); padding: 20px; }
+        .container { max-width: 650px; margin: 40px auto; }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .news-list { list-style: none; padding: 0; }
+        .news-item { background: var(--card-bg); padding: 20px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .news-link { color: var(--text-color); text-decoration: none; font-weight: 600; display: block; }
+        .news-link:hover { color: var(--accent-color); }
+        .time { font-size: 0.8rem; color: #888; display: block; margin-top: 5px; }
+        .loading { text-align: center; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Latest 10 Tech News</h1>
+        <div id="loading" class="loading">Fetching latest headlines...</div>
+        <ul id="news-list" class="news-list"></ul>
+    </div>
+    <script>
+        async function fetchNews() {
+            try {
+                const response = await fetch('/api/get-news');
+                const data = await response.json();
+                document.getElementById('loading').style.display = 'none';
+                const listContainer = document.getElementById('news-list');
+                
+                data.forEach((item, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'news-item';
+                    const date = new Date(item.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    listItem.innerHTML = `
+                        <a href="${item.url}" target="_blank" class="news-link">${index + 1}. ${item.title}</a>
+                        <span class="time">Fetched at ${date}</span>
+                    `;
+                    listContainer.appendChild(listItem);
+                });
+            } catch (error) {
+                document.getElementById('loading').innerText = "Failed to load news links.";
+            }
+        }
+        fetchNews();
+    </script>
+</body>
+</html>
