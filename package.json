@@ -1,0 +1,11 @@
+{
+  "name": "news-crawler",
+  "version": "1.0.0",
+  "description": "Hourly news crawler",
+  "main": "scraper.js",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "pg": "^8.11.3"
+  }
+}
