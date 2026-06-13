@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-with-version: '20'
-          cache: 'npm'
 
       # 3. Install the dependencies listed in your package.json (axios, cheerio, pg)
       - name: Install dependencies
